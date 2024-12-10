@@ -1,3 +1,5 @@
+// Copyright (c) 2024 Ben Sutherland.
+
 use basis_universal_sys as sys;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::Mutex;
@@ -29,7 +31,7 @@ pub fn transcoder_init() {
             let lock = TRANSCODER_INIT_LOCK.lock().unwrap();
             if !TRANSCODER_INIT_CALLED.load(Ordering::Acquire) {
                 // Run the init code
-                sys::basisu_encoder_init();
+                sys::basisu_transcoder_init();
                 TRANSCODER_INIT_CALLED.store(true, Ordering::Release);
             }
             std::mem::drop(lock);
